@@ -1,4 +1,5 @@
 const knex = require("../db/knex.js");
+const moment = require("moment");
 
 module.exports = {
   show: (req, res) => {
@@ -27,7 +28,8 @@ module.exports = {
                       book: book[0],
                       users,
                       comments,
-                      cur_user: req.session.user
+                      cur_user: req.session.user,
+                      moment
                     });
                   });
               });

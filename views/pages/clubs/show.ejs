@@ -71,7 +71,7 @@
       </div>
       <div class="card-footer text-muted">
         <small>
-          <%= comment.created_at %></small>
+          <%= moment(comment.created_at).format("dddd, MMMM Do YYYY, h:mm:ss a") %></small>
       </div>
     </div>
     <br>
