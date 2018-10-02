@@ -1,0 +1,85 @@
+<div class="row">
+  <div class="col-md-4">
+    <img src="<%= club.img_url%>" class="img-fluid rounded book-img" alt="<%=club.title%>">
+  </div>
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-header">
+        A club for the book:
+        <%= book.title %>
+        <% if(users.length === 0) { %>
+        <a href="/clubs/join/<%= club.id %>/<%= cur_user.id %>" class="btn btn-success btn-sm float-right">Join Club</a>
+        <% } else { %>
+        <a href="/clubs/leave/
+        <%= club.id %>/<%= cur_user.id %>" class="btn btn-danger btn-sm float-right">Leave
+          Club</a>
+        <% } %>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">
+          <%= club.name %>
+        </h5>
+        <p class="card-text">
+          <%= club.description %>
+        </p>
+        <!-- <a href="#" class="btn btn-dark">
+        </a> -->
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<hr>
+<br>
+
+<% if(users.length !== 0) { %>
+<div class="row">
+  <div class="col-md-5 float-right">
+    <div class="card">
+      <form action="/comments" method="post">
+        <div class="card-header">
+          Add a comment!
+        </div>
+        <div class="card-body">
+          <div class="form-group">
+            <textarea type="text" rows="10" class="form-control" name="content" aria-describedby="content" placeholder="Enter a Comment"></textarea>
+          </div>
+        </div>
+        <input type="hidden" name="user_id" value="<%= cur_user.id %>">
+        <input type="hidden" name="club_id" value="<%= club.id %>">
+        <input type="hidden" name="user_name" value="<%= cur_user.user_name %>">
+        <button type="submit" class="btn btn-dark float-right">Submit</button>
+      </form>
+    </div>
+  </div>
+
+
+  <div class="col-md-7">
+    <% comments.forEach(comment => { %>
+    <div class="card">
+      <div class="card-header">
+        By: <a href="/users/<%= comment.user_id%>">
+          <%= comment.commenter %></a>
+        <% if(cur_user.id === comment.user_id) { %>
+        <a href="/clubs/delete_comment/<%= club.id %>/<%= comment.id %>" class="btn btn-danger btn-sm float-right">Delete</a>
+        <% } %>
+      </div>
+      <div class="card-body">
+        <p>
+          <%= comment.content %>
+        </p>
+      </div>
+      <div class="card-footer text-muted">
+        <small>
+          <%= comment.created_at %></small>
+      </div>
+    </div>
+    <br>
+    <% }) %>
+  </div>
+</div>
+
+<br>
+<% } else { %>
+
+<% } %>
