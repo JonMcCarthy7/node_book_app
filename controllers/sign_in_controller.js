@@ -28,10 +28,20 @@ module.exports = {
         let user = results[0];
         if (user.password === req.body.password) {
           req.session.user = user;
-          res.redirect("/");
+          req.session.save(() => {
+            res.redirect("/");
+          });
         } else {
           res.redirect("/log_in");
         }
       });
+  },
+  signOut: (req, res) => {
+    req.session.user = false;
+    req.session.save(() => {
+      console.log(req.session.user);
+
+      res.render("pages/sign_in_up");
+    });
   }
 };

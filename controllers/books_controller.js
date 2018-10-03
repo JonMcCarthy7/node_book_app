@@ -21,5 +21,22 @@ module.exports = {
               });
           });
       });
+  },
+  new: (req, res) => {
+    knex("author").then(authors => {
+      res.render("pages/books/new", { authors });
+    });
+  },
+  create: (req, res) => {
+    knex("book")
+      .insert({
+        title: req.body.title,
+        img_url: req.body.img_url,
+        description: req.body.description,
+        author_id: req.body.author_id
+      })
+      .then(() => {
+        res.redirect("/");
+      });
   }
 };
